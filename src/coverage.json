@@ -1,0 +1,77 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T00:28:30.843Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-15",
+        "summary": "Rename the site/brand text shown in the UI from “Art Shop” / “Sensual Sketches & Feminine Art” to “femme forms”, including all visible header/footer/hero text and any remaining accessible labels or page metadata (e.g., document title) so the brand name is consistent across the app.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/components/layout/SiteFooter.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/index.html"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/components/layout/SiteFooter.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/index.html"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Increase the glittery/shimmery styling intensity across the site while keeping the existing rustic sketch + silver/metallic direction, by strengthening shimmer overlays/glows and applying the enhanced shimmer treatment consistently to key surfaces (header, hero, cards, and primary/outline buttons) without reducing readability.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/storefront/ArtworkCard.tsx",
+          "frontend/src/components/storefront/JewelryCard.tsx",
+          "frontend/src/pages/JewelryDetailPage.tsx",
+          "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+          "frontend/src/components/auth/LoginButton.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/components/storefront/ArtworkCard.tsx",
+          "frontend/src/components/storefront/JewelryCard.tsx",
+          "frontend/src/pages/JewelryDetailPage.tsx",
+          "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+          "frontend/src/components/auth/LoginButton.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/index.html",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/layout/SiteFooter.tsx",
+    "frontend/src/components/layout/SiteHeader.tsx",
+    "frontend/src/components/storefront/ArtworkCard.tsx",
+    "frontend/src/components/storefront/JewelryCard.tsx",
+    "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+    "frontend/src/index.css",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/JewelryDetailPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

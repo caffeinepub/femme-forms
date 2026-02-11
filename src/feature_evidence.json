@@ -1,0 +1,55 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-rename-the-site-brand-text-shown-in-the-ui-from-art-shop-sensual-sketches-feminine-art-to-femme-forms-including-all-visible-header-footer-hero-text-and-any-remaining-accessible-labels-or-page-metadata-e-g-document-title-so-the-brand-name-is-consistent-across-the-app",
+      "featureTitle": "Rename the site/brand text shown in the UI from “Art Shop” / “Sensual Sketches & Feminine Art” to “femme forms”, including all visible header/footer/hero text and any remaining accessible labels or page metadata (e.g., document title) so the brand name is consistent across the app.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/components/layout/SiteFooter.tsx",
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-increase-the-glittery-shimmery-styling-intensity-across-the-site-while-keeping-the-existing-rustic-sketch-silver-metallic-direction-by-strengthening-shimmer-overlays-glows-and-applying-the-enhanced-shimmer-treatment-consistently-to-key-surfaces-header-hero-cards-and-primary-outline-buttons-without-reducing-readability",
+      "featureTitle": "Increase the glittery/shimmery styling intensity across the site while keeping the existing rustic sketch + silver/metallic direction, by strengthening shimmer overlays/glows and applying the enhanced shimmer treatment consistently to key surfaces (header, hero, cards, and primary/outline buttons) without reducing readability.",
+      "files": [
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/components/storefront/ArtworkCard.tsx",
+        "frontend/src/components/storefront/JewelryCard.tsx",
+        "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/pages/JewelryDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

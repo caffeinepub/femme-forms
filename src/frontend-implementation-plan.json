@@ -1,0 +1,92 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Rename brand to “femme forms” and intensify glittery shimmer theme",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "summary": "Update all visible brand text, accessible labels, and document metadata to consistently use “femme forms”.",
+      "acceptanceCriteria": [
+        "Header brand label shows “femme forms” instead of “Art Shop”.",
+        "Footer copyright line shows “femme forms” instead of “Art Shop”.",
+        "Home page hero headline shows “femme forms” instead of “Sensual Sketches & Feminine Art”.",
+        "Header logo image alt text and other user-facing labels referencing the old name are updated to “femme forms”.",
+        "The HTML document <title> is updated to reflect “femme forms”."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Replace the header brand label text and logo alt text from “Art Shop” to “femme forms” to ensure consistent visible and accessible branding."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteFooter.tsx",
+          "operation": "modify",
+          "description": "Update footer copyright text to “femme forms” and adjust any remaining identifier strings/defaults that still reference “art-shop” to align with the new brand name."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Update the hero headline from “Sensual Sketches & Feminine Art” to “femme forms” (keep other English copy intact unless it contains the old brand name)."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Update the HTML document <title> to reflect the “femme forms” brand name."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Strengthen glitter/shimmer styling across header, hero, cards, and primary/outline buttons while maintaining readability and avoiding layout regressions in light/dark modes.",
+      "acceptanceCriteria": [
+        "Shimmer overlay effect is visibly stronger than before on the header and hero background (e.g., increased shimmer opacity/contrast) while text remains readable.",
+        "Buttons using shimmer styles (e.g., primary CTA and outline buttons) have a noticeably stronger glitter/shimmer presence (e.g., stronger glow and/or animated shimmer) compared to the current build.",
+        "Card surfaces in listings/detail views show a consistent enhanced shimmer/glitter accent that matches the updated theme.",
+        "No layout regressions: navigation, mobile menu, and page content remain usable and legible in both light and dark modes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Increase shimmer intensity globally by strengthening shimmer utility classes (e.g., higher shimmer overlay opacity/contrast, stronger shimmer-glow, slightly brighter shimmer-border) and adding a subtle animated shimmer movement on .shimmer-overlay::before while ensuring text/readability (especially with the hero’s existing gradient overlay)."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Ensure the header’s shimmer treatment remains strong and consistent after the global shimmer utility changes (keep mobile/desktop nav legible; adjust/extend class usage only if needed)."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Enhance hero shimmer strength consistently with the updated theme (rely on updated .shimmer-overlay and existing gradient overlay; adjust section/button class usage only if needed to keep hero text readable)."
+        },
+        {
+          "path": "frontend/src/components/storefront/ArtworkCard.tsx",
+          "operation": "modify",
+          "description": "Apply a consistent enhanced shimmer/glitter accent to artwork card surfaces (e.g., add shimmer overlay treatment to the card or card content in addition to existing shimmer-border/metallic-gradient) without reducing text/image clarity."
+        },
+        {
+          "path": "frontend/src/components/storefront/JewelryCard.tsx",
+          "operation": "modify",
+          "description": "Apply the same enhanced shimmer/glitter surface treatment to jewelry card surfaces as used for artwork cards for consistent listings styling."
+        },
+        {
+          "path": "frontend/src/pages/JewelryDetailPage.tsx",
+          "operation": "modify",
+          "description": "Ensure detail-view cards/surfaces (image container and attribute Card) reflect the enhanced shimmer treatment consistently (beyond just border) while keeping content legible in light/dark modes."
+        },
+        {
+          "path": "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+          "operation": "modify",
+          "description": "Strengthen shimmer on the inquiry card surface and primary submit button (and maintain shimmer-border on fields) so primary actions show a noticeably stronger glitter/shimmer presence without harming form readability."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Add enhanced shimmer styling to authentication action buttons via className (primary/default and outline variants) so key header buttons match the stronger glitter/shimmer treatment (do not modify UI library components; only compose via props/classes)."
+        }
+      ]
+    }
+  ]
+}

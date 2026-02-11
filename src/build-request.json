@@ -1,0 +1,73 @@
+{
+  "kind": "build_request",
+  "title": "Rename site to “femme forms” and boost glittery/shimmery theme",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "text": "Rename the site/brand text shown in the UI from “Art Shop” / “Sensual Sketches & Feminine Art” to “femme forms”, including all visible header/footer/hero text and any remaining accessible labels or page metadata (e.g., document title) so the brand name is consistent across the app.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-rename",
+          "msg-user-build-it-now"
+        ],
+        "quotes": [
+          "change the name of the site from Sensual Sketches and Feminine Art to the “femme forms",
+          "build it now"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header brand label shows “femme forms” instead of “Art Shop”.",
+        "Footer copyright line shows “femme forms” instead of “Art Shop”.",
+        "Home page hero headline shows “femme forms” instead of “Sensual Sketches & Feminine Art”.",
+        "Header logo image alt text and other user-facing labels referencing the old name are updated to “femme forms”.",
+        "The HTML document <title> is updated to reflect “femme forms”."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Increase the glittery/shimmery styling intensity across the site while keeping the existing rustic sketch + silver/metallic direction, by strengthening shimmer overlays/glows and applying the enhanced shimmer treatment consistently to key surfaces (header, hero, cards, and primary/outline buttons) without reducing readability.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-rename",
+          "msg-user-build-it-now"
+        ],
+        "quotes": [
+          "make it more glitter and shimmery.",
+          "build it now"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Shimmer overlay effect is visibly stronger than before on the header and hero background (e.g., increased shimmer opacity/contrast) while text remains readable.",
+        "Buttons using shimmer styles (e.g., primary CTA and outline buttons) have a noticeably stronger glitter/shimmer presence (e.g., stronger glow and/or animated shimmer) compared to the current build.",
+        "Card surfaces in listings/detail views show a consistent enhanced shimmer/glitter accent that matches the updated theme.",
+        "No layout regressions: navigation, mobile menu, and page content remain usable and legible in both light and dark modes."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose existing UI components instead).",
+    "Keep all user-facing text in English (brand name “femme forms” as specified by the user)."
+  ],
+  "nonGoals": [
+    "Do not change backend canister APIs, data models, or authorization logic.",
+    "Do not add new storefront features (e.g., new product types, checkout/payments) beyond renaming and theme intensity updates.",
+    "Do not introduce new third-party services or integrations."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

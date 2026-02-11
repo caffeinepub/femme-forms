@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Website for the brand “femme forms” to showcase and sell the user's sensual women-focused sketches/art pieces, expanding into an art shop brand that may also sell jewelry, with a rustic sketch aesthetic plus stronger glittery/shimmery silver/metallic shine.",
+  "architectural_notes": [
+    "Visual/brand direction: sensual women-focused sketches; overall aesthetic should be rustic gray sketchy but with shimmery silver/metallic shine.",
+    "Brand/site name should be displayed as “femme forms”.",
+    "Visual direction update: push the theme further toward glittery + shimmery silver/metallic shine across the layout."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-public-storefront-experience-that-lets-visitors-browse-the-artist-s-sketches-art-pieces-a-home-page-intro-featured-items-a-gallery-listing-page-with-search-and-basic-filters-e-g-availability-price-range-and-an-artwork-detail-page-with-images-description-price-and-availability-status",
+      "title": "Create a public storefront experience that lets visitors browse the artist’s sketches/art pieces: a home page (intro + featured items), a gallery/listing page with search and basic filters (e.g., availability, price range), and an artwork detail page with images, description, price, and availability status.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-admin-only-workflow-for-the-artist-to-manage-inventory-sign-in-with-internet-identity-create-edit-delete-artworks-upload-or-select-images-for-artworks-set-title-description-price-and-toggle-availability-in-stock-sold",
+      "title": "Implement an admin-only workflow for the artist to manage inventory: sign in with Internet Identity, create/edit/delete artworks, upload or select images for artworks, set title/description/price, and toggle availability (in stock/sold).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-purchase-inquiry-order-request-flow-for-visitors-from-an-artwork-detail-page-a-visitor-can-submit-an-order-request-including-contact-email-name-optional-message-and-quantity-if-applicable-store-order-requests-in-the-backend-and-expose-an-admin-view-to-review-and-mark-them-as-handled",
+      "title": "Add a purchase inquiry / order-request flow for visitors: from an artwork detail page, a visitor can submit an order request including contact email, name, optional message, and quantity (if applicable). Store order requests in the backend and expose an admin view to review and mark them as handled.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-coherent-distinctive-visual-theme-for-an-art-sketch-storefront-and-apply-it-consistently-colors-typography-spacing-and-components-using-tailwind-and-existing-ui-components-without-editing-read-only-ui-component-sources",
+      "title": "Create a coherent, distinctive visual theme for an art/sketch storefront and apply it consistently (colors, typography, spacing, and components) using Tailwind and existing UI components (without editing read-only UI component sources).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-site-pages-and-structure-expected-for-a-small-art-shop-about-page-artist-bio-placeholder-text-in-english-and-contact-page-contact-form-that-submits-a-message-stored-in-the-backend-or-reuses-the-order-request-mechanism",
+      "title": "Add basic site pages and structure expected for a small art shop: About page (artist bio placeholder text in English) and Contact page (contact form that submits a message stored in the backend or reuses the order-request mechanism).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-robust-loading-error-empty-states-for-all-major-data-views-using-react-query-gallery-list-artwork-detail-admin-lists-so-the-site-remains-usable-under-slow-or-failing-requests",
+      "title": "Add robust loading/error/empty states for all major data views using React Query (gallery list, artwork detail, admin lists) so the site remains usable under slow or failing requests.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-generated-static-images-logo-and-hero-background-from-frontend-public-assets-generated-and-integrate-them-into-the-layout-logo-in-header-hero-background-on-home-page-without-serving-images-through-the-backend",
+      "title": "Render the generated static images (logo and hero background) from frontend/public/assets/generated and integrate them into the layout (logo in header, hero background on home page) without serving images through the backend.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-s-visual-theme-to-feel-rustic-and-sketchy-but-distinctly-shimmery-silver-metallic-shining-accents-across-the-header-hero-cards-buttons-and-typography-while-keeping-all-user-facing-text-in-english",
+      "title": "Update the site’s visual theme to feel rustic and sketchy but distinctly shimmery/silver/metallic (shining accents) across the header, hero, cards, buttons, and typography, while keeping all user-facing text in English.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-existing-generated-brand-images-to-match-the-new-shimmery-silver-rustic-sketch-aesthetic-and-add-a-new-subtle-silver-shimmer-texture-asset-that-can-be-reused-for-backgrounds-overlays",
+      "title": "Update existing generated brand images to match the new shimmery silver + rustic sketch aesthetic, and add a new subtle silver shimmer texture asset that can be reused for backgrounds/overlays.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-public-jewelry-section-to-the-storefront-ui-including-a-jewelry-listing-page-and-a-jewelry-detail-page-with-image-description-price-and-availability-reusing-existing-loading-error-empty-state-patterns-and-visual-components-where-possible",
+      "title": "Add a public Jewelry section to the storefront UI, including a jewelry listing page and a jewelry detail page with image, description, price, and availability, reusing existing loading/error/empty state patterns and visual components where possible.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-admin-inventory-management-ui-for-jewelry-items-list-create-edit-delete-image-upload-set-availability-toggle-following-the-same-admin-workflow-patterns-already-used-for-artworks",
+      "title": "Add admin inventory management UI for jewelry items (list, create, edit, delete, image upload/set, availability toggle) following the same admin workflow patterns already used for artworks.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-page-and-or-about-page-copy-to-reflect-the-brand-focus-on-sketches-centered-on-women-s-faces-and-bodies-sensuality-and-sexuality-in-tasteful-english-wording-appropriate-for-a-public-art-storefront",
+      "title": "Update the home page and/or about page copy to reflect the brand focus on sketches centered on women’s faces and bodies, sensuality, and sexuality, in tasteful English wording appropriate for a public art storefront.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-rename-the-site-brand-text-shown-in-the-ui-from-art-shop-sensual-sketches-feminine-art-to-femme-forms-including-all-visible-header-footer-hero-text-and-any-remaining-accessible-labels-or-page-metadata-e-g-document-title-so-the-brand-name-is-consistent-across-the-app",
+      "title": "Rename the site/brand text shown in the UI from “Art Shop” / “Sensual Sketches & Feminine Art” to “femme forms”, including all visible header/footer/hero text and any remaining accessible labels or page metadata (e.g., document title) so the brand name is consistent across the app.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-increase-the-glittery-shimmery-styling-intensity-across-the-site-while-keeping-the-existing-rustic-sketch-silver-metallic-direction-by-strengthening-shimmer-overlays-glows-and-applying-the-enhanced-shimmer-treatment-consistently-to-key-surfaces-header-hero-cards-and-primary-outline-buttons-without-reducing-readability",
+      "title": "Increase the glittery/shimmery styling intensity across the site while keeping the existing rustic sketch + silver/metallic direction, by strengthening shimmer overlays/glows and applying the enhanced shimmer treatment consistently to key surfaces (header, hero, cards, and primary/outline buttons) without reducing readability.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create an art portfolio website with the ability to list and sell artwork/sketches online.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Define and implement backend data models and APIs (single Motoko actor) to support artworks and order requests, including stable persistence and basic validation (required fields, non-negative price, reasonable string length limits).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Expand storefront to support selling jewelry in addition to sketches/artworks (product listing/detail and admin inventory management for jewelry items).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Update visual theme to a shimmery, silver, shining look over the existing rustic gray sketchy background aesthetic (branding aligned to sensual women-focused artwork).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add support for selling jewelry items in addition to artworks by implementing a new Jewelry data model and CRUD APIs in the Motoko backend (single actor) with the same admin-only authorization rules used for artworks, plus public query endpoints for storefront browsing and detail views.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Rename the site/brand displayed in the UI (header/footer and any remaining references) to “femme forms”.",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Increase glittery/shimmery styling intensity across the site theme (stronger shimmer effects/textures in key UI areas like header, hero, cards, and buttons).",
+      "reqIds": [],
+      "status": "in_progress"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "femme forms",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,61 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T00:28:30.840Z",
+  "summary": "REQ-15 and REQ-16 appear largely implemented: brand text updated in header/footer/hero and document title, and shimmer/glitter intensity increased via stronger shimmer utilities and applied to header/hero/cards/buttons. However, the diff also introduces multiple unrequested storefront/auth/admin expansions (not part of renaming/theme boost) that conflict with the stated non-goals.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Added/expanded jewelry storefront and admin management (new public jewelry pages and admin jewelry CRUD routes/hooks).",
+      "reason": "BuildRequest explicitly says not to add new storefront features beyond renaming and theme intensity updates; jewelry feature expansion is out of scope.",
+      "evidence": [
+        "frontend-file-summaries.txt (\"frontend/src/App.tsx\": new public jewelry pages and admin jewelry management routes)",
+        "frontend-file-summaries.txt (\"frontend/src/hooks/useQueries.ts\": new jewelry queries/mutations)"
+      ]
+    },
+    {
+      "description": "Introduced first-time user profile setup modal after Internet Identity login.",
+      "reason": "Not requested by REQ-15/REQ-16; also beyond rename/theme changes.",
+      "evidence": [
+        "frontend-file-summaries.txt (\"frontend/src/components/auth/ProfileSetupModal.tsx\": modal dialog for first-time user profile setup)"
+      ]
+    },
+    {
+      "description": "Added/introduced admin route guard and access denied screen components.",
+      "reason": "Not requested by REQ-15/REQ-16; beyond rename/theme changes (even if related to auth, it is additional feature work).",
+      "evidence": [
+        "frontend-file-summaries.txt (\"frontend/src/components/auth/AdminRouteGuard.tsx\")",
+        "frontend-file-summaries.txt (\"frontend/src/components/auth/AccessDeniedScreen.tsx\")"
+      ]
+    },
+    {
+      "description": "Added new generic UI state components (EmptyState, etc.).",
+      "reason": "Not requested by REQ-15/REQ-16; beyond rename/theme changes.",
+      "evidence": [
+        "frontend-file-summaries.txt (\"frontend/src/components/states/EmptyState.tsx\")"
+      ]
+    },
+    {
+      "description": "Changed footer to include/retain a caffeine.ai referral link with UTM tracking based on hostname/app identifier.",
+      "reason": "Not requested by REQ-15/REQ-16; could be considered an unrequested marketing/tracking adjustment (though not a third-party service integration per se).",
+      "evidence": [
+        "frontend/src/components/layout/SiteFooter.tsx (caffeine.ai link with UTM parameters using window.location.hostname)"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/index.html",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/layout/SiteFooter.tsx",
+    "frontend/src/components/layout/SiteHeader.tsx",
+    "frontend/src/components/storefront/ArtworkCard.tsx",
+    "frontend/src/components/storefront/JewelryCard.tsx",
+    "frontend/src/components/storefront/PurchaseInquiryForm.tsx",
+    "frontend/src/index.css",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/JewelryDetailPage.tsx",
+    "project_state.json"
+  ]
+}
