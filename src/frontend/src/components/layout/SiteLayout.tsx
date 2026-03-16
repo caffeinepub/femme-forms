@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import SiteHeader from './SiteHeader';
-import SiteFooter from './SiteFooter';
+import type { ReactNode } from "react";
+import SiteFooter from "./SiteFooter";
+import SiteHeader from "./SiteHeader";
 
 interface SiteLayoutProps {
   children: ReactNode;

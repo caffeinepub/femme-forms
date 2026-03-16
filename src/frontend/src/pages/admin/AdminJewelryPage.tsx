@@ -1,7 +1,3 @@
-import { Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,13 +8,24 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
-import { useGetAllJewelry, useDeleteJewelry } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import ErrorState from '../../components/states/ErrorState';
-import EmptyState from '../../components/states/EmptyState';
-import { toast } from 'sonner';
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Link } from "@tanstack/react-router";
+import { Pencil, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import EmptyState from "../../components/states/EmptyState";
+import ErrorState from "../../components/states/ErrorState";
+import LoadingState from "../../components/states/LoadingState";
+import { useDeleteJewelry, useGetAllJewelry } from "../../hooks/useQueries";
 
 export default function AdminJewelryPage() {
   const { data: jewelry, isLoading, error, refetch } = useGetAllJewelry();
@@ -29,7 +36,7 @@ export default function AdminJewelryPage() {
       await deleteJewelryMutation.mutateAsync(id);
       toast.success(`Deleted "${name}"`);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to delete jewelry item');
+      toast.error(error.message || "Failed to delete jewelry item");
     }
   };
 
@@ -38,15 +45,21 @@ export default function AdminJewelryPage() {
   }
 
   if (error) {
-    return <ErrorState message="Failed to load jewelry items" onRetry={refetch} />;
+    return (
+      <ErrorState message="Failed to load jewelry items" onRetry={refetch} />
+    );
   }
 
   return (
     <div className="container py-12">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-4xl font-bold tracking-tight">Jewelry Management</h1>
-          <p className="mt-2 text-muted-foreground">Manage your jewelry inventory</p>
+          <h1 className="font-display text-4xl font-bold tracking-tight">
+            Jewelry Management
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Manage your jewelry inventory
+          </p>
         </div>
         <Button asChild>
           <Link to="/admin/jewelry/new">
@@ -77,14 +90,17 @@ export default function AdminJewelryPage() {
                   <TableCell>{item.material}</TableCell>
                   <TableCell>${Number(item.price).toFixed(2)}</TableCell>
                   <TableCell>
-                    <Badge variant={item.available ? 'default' : 'secondary'}>
-                      {item.available ? 'In Stock' : 'Sold Out'}
+                    <Badge variant={item.available ? "default" : "secondary"}>
+                      {item.available ? "In Stock" : "Sold Out"}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="ghost" size="sm">
-                        <Link to="/admin/jewelry/$jewelryId/edit" params={{ jewelryId: item.id }}>
+                        <Link
+                          to="/admin/jewelry/$jewelryId/edit"
+                          params={{ jewelryId: item.id }}
+                        >
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
@@ -96,9 +112,12 @@ export default function AdminJewelryPage() {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Delete Jewelry Item</AlertDialogTitle>
+                            <AlertDialogTitle>
+                              Delete Jewelry Item
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                              Are you sure you want to delete "{item.name}"? This action cannot be undone.
+                              Are you sure you want to delete "{item.name}"?
+                              This action cannot be undone.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
@@ -107,7 +126,9 @@ export default function AdminJewelryPage() {
                               onClick={() => handleDelete(item.id, item.name)}
                               disabled={deleteJewelryMutation.isPending}
                             >
-                              {deleteJewelryMutation.isPending ? 'Deleting...' : 'Delete'}
+                              {deleteJewelryMutation.isPending
+                                ? "Deleting..."
+                                : "Delete"}
                             </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>

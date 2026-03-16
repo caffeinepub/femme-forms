@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { useIsCallerAdmin } from '../../hooks/useQueries';
-import { useInternetIdentity } from '../../hooks/useInternetIdentity';
-import AccessDeniedScreen from './AccessDeniedScreen';
-import LoadingState from '../states/LoadingState';
+import type { ReactNode } from "react";
+import { useInternetIdentity } from "../../hooks/useInternetIdentity";
+import { useIsCallerAdmin } from "../../hooks/useQueries";
+import LoadingState from "../states/LoadingState";
+import AccessDeniedScreen from "./AccessDeniedScreen";
 
 interface AdminRouteGuardProps {
   children: ReactNode;

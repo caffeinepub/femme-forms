@@ -1,13 +1,24 @@
-import { useGetAllOrders, useMarkOrderHandled, useGetAllArtworks, useGetAllJewelry } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import ErrorState from '../../components/states/ErrorState';
-import EmptyState from '../../components/states/EmptyState';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShoppingBag, Check } from 'lucide-react';
-import { toast } from 'sonner';
-import { ItemType } from '../../backend';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Check, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
+import { ItemType } from "../../backend";
+import EmptyState from "../../components/states/EmptyState";
+import ErrorState from "../../components/states/ErrorState";
+import LoadingState from "../../components/states/LoadingState";
+import {
+  useGetAllArtworks,
+  useGetAllJewelry,
+  useGetAllOrders,
+  useMarkOrderHandled,
+} from "../../hooks/useQueries";
 
 export default function AdminOrdersPage() {
   const { data: orders, isLoading, error, refetch } = useGetAllOrders();
@@ -18,24 +29,23 @@ export default function AdminOrdersPage() {
   const handleMarkHandled = async (orderId: bigint) => {
     try {
       await markHandled.mutateAsync(orderId);
-      toast.success('Order marked as handled');
+      toast.success("Order marked as handled");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to update order');
+      toast.error(error.message || "Failed to update order");
     }
   };
 
   const getItemTitle = (itemId: string, itemType: ItemType) => {
     if (itemType === ItemType.artwork) {
       const artwork = artworks?.find((a) => a.id === itemId);
-      return artwork?.title || 'Unknown Artwork';
-    } else {
-      const jewelryItem = jewelry?.find((j) => j.id === itemId);
-      return jewelryItem?.name || 'Unknown Jewelry';
+      return artwork?.title || "Unknown Artwork";
     }
+    const jewelryItem = jewelry?.find((j) => j.id === itemId);
+    return jewelryItem?.name || "Unknown Jewelry";
   };
 
   const getItemTypeLabel = (itemType: ItemType) => {
-    return itemType === ItemType.artwork ? 'Artwork' : 'Jewelry';
+    return itemType === ItemType.artwork ? "Artwork" : "Jewelry";
   };
 
   if (isLoading) {
@@ -43,7 +53,9 @@ export default function AdminOrdersPage() {
   }
 
   if (error) {
-    return <ErrorState message="Failed to load orders" onRetry={() => refetch()} />;
+    return (
+      <ErrorState message="Failed to load orders" onRetry={() => refetch()} />
+    );
   }
 
   const sortedOrders = [...(orders || [])].sort((a, b) => {
@@ -54,8 +66,12 @@ export default function AdminOrdersPage() {
   return (
     <div className="container py-12">
       <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">Purchase Inquiries</h1>
-        <p className="mt-2 text-muted-foreground">Review and manage customer purchase requests</p>
+        <h1 className="font-display text-4xl font-bold tracking-tight">
+          Purchase Inquiries
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          Review and manage customer purchase requests
+        </p>
       </div>
 
       {!orders || orders.length === 0 ? (
@@ -67,18 +83,22 @@ export default function AdminOrdersPage() {
       ) : (
         <div className="space-y-4">
           {sortedOrders.map((order) => (
-            <Card key={Number(order.id)} className={order.handled ? 'opacity-60' : ''}>
+            <Card
+              key={Number(order.id)}
+              className={order.handled ? "opacity-60" : ""}
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       Order #{Number(order.id)}
-                      <Badge variant={order.handled ? 'secondary' : 'default'}>
-                        {order.handled ? 'Handled' : 'New'}
+                      <Badge variant={order.handled ? "secondary" : "default"}>
+                        {order.handled ? "Handled" : "New"}
                       </Badge>
                     </CardTitle>
                     <CardDescription className="mt-1">
-                      {getItemTypeLabel(order.itemType)}: {getItemTitle(order.itemId, order.itemType)} • Quantity:{' '}
+                      {getItemTypeLabel(order.itemType)}:{" "}
+                      {getItemTitle(order.itemId, order.itemType)} • Quantity:{" "}
                       {Number(order.quantity)}
                     </CardDescription>
                   </div>
@@ -98,17 +118,23 @@ export default function AdminOrdersPage() {
                 <div className="grid gap-2 sm:grid-cols-2">
                   <div>
                     <p className="text-sm font-medium">Name</p>
-                    <p className="text-sm text-muted-foreground">{order.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {order.name}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm font-medium">Email</p>
-                    <p className="text-sm text-muted-foreground">{order.email}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {order.email}
+                    </p>
                   </div>
                 </div>
                 {order.message && (
                   <div>
                     <p className="text-sm font-medium">Message</p>
-                    <p className="text-sm text-muted-foreground">{order.message}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {order.message}
+                    </p>
                   </div>
                 )}
               </CardContent>

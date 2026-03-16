@@ -1,17 +1,22 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Upload } from 'lucide-react';
-import { useGetJewelry, useCreateJewelry, useUpdateJewelry, useSetJewelryImage } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import { toast } from 'sonner';
-import { ExternalBlob } from '../../backend';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { Link, useNavigate, useParams } from "@tanstack/react-router";
+import { ArrowLeft, Upload } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { ExternalBlob } from "../../backend";
+import LoadingState from "../../components/states/LoadingState";
+import {
+  useCreateJewelry,
+  useGetJewelry,
+  useSetJewelryImage,
+  useUpdateJewelry,
+} from "../../hooks/useQueries";
 
 export default function AdminJewelryEditorPage() {
   const params = useParams({ strict: false });
@@ -19,17 +24,19 @@ export default function AdminJewelryEditorPage() {
   const isEditing = !!jewelryId;
   const navigate = useNavigate();
 
-  const { data: jewelry, isLoading } = useGetJewelry(jewelryId || '', { enabled: isEditing });
+  const { data: jewelry, isLoading } = useGetJewelry(jewelryId || "", {
+    enabled: isEditing,
+  });
   const createMutation = useCreateJewelry();
   const updateMutation = useUpdateJewelry();
   const setImageMutation = useSetJewelryImage();
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [material, setMaterial] = useState('');
-  const [weightGram, setWeightGram] = useState('');
-  const [type, setType] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [material, setMaterial] = useState("");
+  const [weightGram, setWeightGram] = useState("");
+  const [type, setType] = useState("");
   const [available, setAvailable] = useState(true);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -47,7 +54,7 @@ export default function AdminJewelryEditorPage() {
   }, [jewelry]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files?.[0]) {
       setImageFile(e.target.files[0]);
     }
   };
@@ -55,21 +62,27 @@ export default function AdminJewelryEditorPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name.trim() || !price || !material.trim() || !weightGram || !type.trim()) {
-      toast.error('Please fill in all required fields');
+    if (
+      !name.trim() ||
+      !price ||
+      !material.trim() ||
+      !weightGram ||
+      !type.trim()
+    ) {
+      toast.error("Please fill in all required fields");
       return;
     }
 
-    const priceNum = parseFloat(price);
-    const weightNum = parseInt(weightGram);
+    const priceNum = Number.parseFloat(price);
+    const weightNum = Number.parseInt(weightGram);
 
-    if (isNaN(priceNum) || priceNum < 0) {
-      toast.error('Please enter a valid price');
+    if (Number.isNaN(priceNum) || priceNum < 0) {
+      toast.error("Please enter a valid price");
       return;
     }
 
-    if (isNaN(weightNum) || weightNum < 0) {
-      toast.error('Please enter a valid weight');
+    if (Number.isNaN(weightNum) || weightNum < 0) {
+      toast.error("Please enter a valid weight");
       return;
     }
 
@@ -88,7 +101,7 @@ export default function AdminJewelryEditorPage() {
           type: type.trim(),
         });
         itemId = jewelryId;
-        toast.success('Jewelry item updated successfully');
+        toast.success("Jewelry item updated successfully");
       } else {
         itemId = await createMutation.mutateAsync({
           name: name.trim(),
@@ -98,23 +111,25 @@ export default function AdminJewelryEditorPage() {
           weightGram: BigInt(weightNum),
           type: type.trim(),
         });
-        toast.success('Jewelry item created successfully');
+        toast.success("Jewelry item created successfully");
       }
 
       if (imageFile) {
         const arrayBuffer = await imageFile.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
-        const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress((percentage) => {
-          setUploadProgress(percentage);
-        });
+        const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress(
+          (percentage) => {
+            setUploadProgress(percentage);
+          },
+        );
 
         await setImageMutation.mutateAsync({ jewelryId: itemId, blob });
-        toast.success('Image uploaded successfully');
+        toast.success("Image uploaded successfully");
       }
 
-      navigate({ to: '/admin/jewelry' });
+      navigate({ to: "/admin/jewelry" });
     } catch (error: any) {
-      toast.error(error.message || 'Failed to save jewelry item');
+      toast.error(error.message || "Failed to save jewelry item");
     }
   };
 
@@ -123,7 +138,10 @@ export default function AdminJewelryEditorPage() {
   }
 
   const currentImageUrl = jewelry?.image?.getDirectURL();
-  const isSaving = createMutation.isPending || updateMutation.isPending || setImageMutation.isPending;
+  const isSaving =
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    setImageMutation.isPending;
 
   return (
     <div className="container py-12">
@@ -136,7 +154,7 @@ export default function AdminJewelryEditorPage() {
 
       <div className="mx-auto max-w-2xl">
         <h1 className="mb-8 font-display text-4xl font-bold tracking-tight">
-          {isEditing ? 'Edit Jewelry Item' : 'Add New Jewelry'}
+          {isEditing ? "Edit Jewelry Item" : "Add New Jewelry"}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -229,9 +247,15 @@ export default function AdminJewelryEditorPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label htmlFor="available">Available for Purchase</Label>
-                  <p className="text-sm text-muted-foreground">Show this item as in stock</p>
+                  <p className="text-sm text-muted-foreground">
+                    Show this item as in stock
+                  </p>
                 </div>
-                <Switch id="available" checked={available} onCheckedChange={setAvailable} />
+                <Switch
+                  id="available"
+                  checked={available}
+                  onCheckedChange={setAvailable}
+                />
               </div>
             </CardContent>
           </Card>
@@ -243,13 +267,17 @@ export default function AdminJewelryEditorPage() {
             <CardContent className="space-y-4">
               {currentImageUrl && (
                 <div className="aspect-square w-full max-w-xs overflow-hidden rounded-lg border shimmer-border">
-                  <img src={currentImageUrl} alt="Current" className="h-full w-full object-cover" />
+                  <img
+                    src={currentImageUrl}
+                    alt="Current"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               )}
 
               <div>
                 <Label htmlFor="image">
-                  {currentImageUrl ? 'Replace Image' : 'Upload Image'}
+                  {currentImageUrl ? "Replace Image" : "Upload Image"}
                 </Label>
                 <div className="mt-2">
                   <Input
@@ -281,7 +309,11 @@ export default function AdminJewelryEditorPage() {
 
           <div className="flex gap-4">
             <Button type="submit" disabled={isSaving} className="flex-1">
-              {isSaving ? 'Saving...' : isEditing ? 'Update Jewelry' : 'Create Jewelry'}
+              {isSaving
+                ? "Saving..."
+                : isEditing
+                  ? "Update Jewelry"
+                  : "Create Jewelry"}
             </Button>
             <Button type="button" variant="outline" asChild>
               <Link to="/admin/jewelry">Cancel</Link>

@@ -1,8 +1,10 @@
-import { Heart } from 'lucide-react';
+import { Heart } from "lucide-react";
 
 export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
-  const appIdentifier = encodeURIComponent(window.location.hostname || 'femme-forms');
+  const appIdentifier = encodeURIComponent(
+    window.location.hostname || "femme-forms",
+  );
 
   return (
     <footer className="border-t border-border/40 bg-muted/30">
@@ -12,7 +14,8 @@ export default function SiteFooter() {
             © {currentYear} femme forms. All rights reserved.
           </p>
           <p className="flex items-center gap-1.5 text-center text-sm text-muted-foreground">
-            Built with <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500" /> using{' '}
+            Built with{" "}
+            <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500" /> using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
               target="_blank"

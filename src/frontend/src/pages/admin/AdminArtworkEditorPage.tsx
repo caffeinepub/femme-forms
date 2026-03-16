@@ -1,31 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from '@tanstack/react-router';
-import { useGetArtwork, useCreateArtwork, useUpdateArtwork, useSetArtworkImage } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Upload, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
-import { ExternalBlob } from '../../backend';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useNavigate, useParams } from "@tanstack/react-router";
+import { ArrowLeft, Loader2, Upload } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { ExternalBlob } from "../../backend";
+import LoadingState from "../../components/states/LoadingState";
+import {
+  useCreateArtwork,
+  useGetArtwork,
+  useSetArtworkImage,
+  useUpdateArtwork,
+} from "../../hooks/useQueries";
 
 export default function AdminArtworkEditorPage() {
   const params = useParams({ strict: false });
-  const artworkId = 'artworkId' in params ? params.artworkId : undefined;
+  const artworkId = "artworkId" in params ? params.artworkId : undefined;
   const navigate = useNavigate();
   const isEditMode = !!artworkId;
 
-  const { data: artwork, isLoading: loadingArtwork } = useGetArtwork(artworkId || '');
+  const { data: artwork, isLoading: loadingArtwork } = useGetArtwork(
+    artworkId || "",
+  );
   const createArtwork = useCreateArtwork();
   const updateArtwork = useUpdateArtwork();
   const setArtworkImage = useSetArtworkImage();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [available, setAvailable] = useState(true);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -60,13 +73,13 @@ export default function AdminArtworkEditorPage() {
     e.preventDefault();
 
     if (!title.trim() || !price) {
-      toast.error('Please fill in all required fields');
+      toast.error("Please fill in all required fields");
       return;
     }
 
-    const priceNum = parseFloat(price);
-    if (isNaN(priceNum) || priceNum < 0) {
-      toast.error('Please enter a valid price');
+    const priceNum = Number.parseFloat(price);
+    if (Number.isNaN(priceNum) || priceNum < 0) {
+      toast.error("Please enter a valid price");
       return;
     }
 
@@ -81,36 +94,38 @@ export default function AdminArtworkEditorPage() {
           price: BigInt(Math.round(priceNum * 100)),
           available,
         });
-        toast.success('Artwork updated successfully');
+        toast.success("Artwork updated successfully");
       } else {
         savedArtworkId = await createArtwork.mutateAsync({
           title: title.trim(),
           description: description.trim(),
           price: BigInt(Math.round(priceNum * 100)),
         });
-        toast.success('Artwork created successfully');
+        toast.success("Artwork created successfully");
       }
 
       if (imageFile && savedArtworkId) {
         setIsUploading(true);
         const arrayBuffer = await imageFile.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
-        const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress((percentage) => {
-          setUploadProgress(percentage);
-        });
+        const blob = ExternalBlob.fromBytes(uint8Array).withUploadProgress(
+          (percentage) => {
+            setUploadProgress(percentage);
+          },
+        );
 
         await setArtworkImage.mutateAsync({
           artworkId: savedArtworkId,
           blob,
         });
         setIsUploading(false);
-        toast.success('Image uploaded successfully');
+        toast.success("Image uploaded successfully");
       }
 
-      navigate({ to: '/admin/artworks' });
+      navigate({ to: "/admin/artworks" });
     } catch (error: any) {
       setIsUploading(false);
-      toast.error(error.message || 'Failed to save artwork');
+      toast.error(error.message || "Failed to save artwork");
     }
   };
 
@@ -120,28 +135,39 @@ export default function AdminArtworkEditorPage() {
 
   return (
     <div className="container py-12">
-      <Button variant="ghost" onClick={() => navigate({ to: '/admin/artworks' })} className="mb-6">
+      <Button
+        variant="ghost"
+        onClick={() => navigate({ to: "/admin/artworks" })}
+        className="mb-6"
+      >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Artworks
       </Button>
 
       <div className="mx-auto max-w-2xl">
         <h1 className="mb-8 font-display text-4xl font-bold tracking-tight">
-          {isEditMode ? 'Edit Artwork' : 'Add New Artwork'}
+          {isEditMode ? "Edit Artwork" : "Add New Artwork"}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Artwork Details</CardTitle>
-              <CardDescription>Enter the basic information about the artwork</CardDescription>
+              <CardDescription>
+                Enter the basic information about the artwork
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">
                   Title <span className="text-destructive">*</span>
                 </Label>
-                <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <Input
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="space-y-2">
@@ -172,9 +198,15 @@ export default function AdminArtworkEditorPage() {
               <div className="flex items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
                   <Label htmlFor="available">Available for Purchase</Label>
-                  <p className="text-sm text-muted-foreground">Mark this artwork as available or sold</p>
+                  <p className="text-sm text-muted-foreground">
+                    Mark this artwork as available or sold
+                  </p>
                 </div>
-                <Switch id="available" checked={available} onCheckedChange={setAvailable} />
+                <Switch
+                  id="available"
+                  checked={available}
+                  onCheckedChange={setAvailable}
+                />
               </div>
             </CardContent>
           </Card>
@@ -187,7 +219,11 @@ export default function AdminArtworkEditorPage() {
             <CardContent className="space-y-4">
               {imagePreview && (
                 <div className="overflow-hidden rounded-lg border">
-                  <img src={imagePreview} alt="Preview" className="h-64 w-full object-cover" />
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="h-64 w-full object-cover"
+                  />
                 </div>
               )}
               <div>
@@ -196,7 +232,7 @@ export default function AdminArtworkEditorPage() {
                     <div className="text-center">
                       <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
                       <p className="mt-2 text-sm text-muted-foreground">
-                        {imageFile ? imageFile.name : 'Click to upload image'}
+                        {imageFile ? imageFile.name : "Click to upload image"}
                       </p>
                     </div>
                   </div>
@@ -229,21 +265,31 @@ export default function AdminArtworkEditorPage() {
           <div className="flex gap-3">
             <Button
               type="submit"
-              disabled={createArtwork.isPending || updateArtwork.isPending || isUploading}
+              disabled={
+                createArtwork.isPending ||
+                updateArtwork.isPending ||
+                isUploading
+              }
               className="flex-1"
             >
-              {createArtwork.isPending || updateArtwork.isPending || isUploading ? (
+              {createArtwork.isPending ||
+              updateArtwork.isPending ||
+              isUploading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Saving...
                 </>
               ) : isEditMode ? (
-                'Update Artwork'
+                "Update Artwork"
               ) : (
-                'Create Artwork'
+                "Create Artwork"
               )}
             </Button>
-            <Button type="button" variant="outline" onClick={() => navigate({ to: '/admin/artworks' })}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => navigate({ to: "/admin/artworks" })}
+            >
               Cancel
             </Button>
           </div>

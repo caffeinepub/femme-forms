@@ -1,16 +1,16 @@
-import { useParams, Link } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
-import { useGetJewelry } from '../hooks/useQueries';
-import LoadingState from '../components/states/LoadingState';
-import ErrorState from '../components/states/ErrorState';
-import PurchaseInquiryForm from '../components/storefront/PurchaseInquiryForm';
-import { ItemType } from '../backend';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link, useParams } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { ItemType } from "../backend";
+import ErrorState from "../components/states/ErrorState";
+import LoadingState from "../components/states/LoadingState";
+import PurchaseInquiryForm from "../components/storefront/PurchaseInquiryForm";
+import { useGetJewelry } from "../hooks/useQueries";
 
 export default function JewelryDetailPage() {
-  const { jewelryId } = useParams({ from: '/jewelry/$jewelryId' });
+  const { jewelryId } = useParams({ from: "/jewelry/$jewelryId" });
   const { data: jewelry, isLoading, error, refetch } = useGetJewelry(jewelryId);
 
   if (isLoading) {
@@ -18,7 +18,9 @@ export default function JewelryDetailPage() {
   }
 
   if (error || !jewelry) {
-    return <ErrorState message="Failed to load jewelry details" onRetry={refetch} />;
+    return (
+      <ErrorState message="Failed to load jewelry details" onRetry={refetch} />
+    );
   }
 
   const imageUrl = jewelry.image?.getDirectURL();
@@ -38,7 +40,11 @@ export default function JewelryDetailPage() {
         {/* Image */}
         <div className="aspect-square overflow-hidden rounded-lg bg-muted shimmer-border shimmer-overlay">
           {imageUrl ? (
-            <img src={imageUrl} alt={jewelry.name} className="h-full w-full object-cover" />
+            <img
+              src={imageUrl}
+              alt={jewelry.name}
+              className="h-full w-full object-cover"
+            />
           ) : (
             <div className="flex h-full items-center justify-center text-muted-foreground">
               <span>No image available</span>
@@ -49,11 +55,18 @@ export default function JewelryDetailPage() {
         {/* Details */}
         <div>
           <div className="mb-4">
-            <Badge variant={jewelry.available ? 'default' : 'secondary'} className="mb-3">
-              {jewelry.available ? 'In Stock' : 'Sold Out'}
+            <Badge
+              variant={jewelry.available ? "default" : "secondary"}
+              className="mb-3"
+            >
+              {jewelry.available ? "In Stock" : "Sold Out"}
             </Badge>
-            <h1 className="font-display text-4xl font-bold tracking-tight">{jewelry.name}</h1>
-            <p className="mt-2 text-2xl font-semibold text-shimmer">{priceFormatted}</p>
+            <h1 className="font-display text-4xl font-bold tracking-tight">
+              {jewelry.name}
+            </h1>
+            <p className="mt-2 text-2xl font-semibold text-shimmer">
+              {priceFormatted}
+            </p>
           </div>
 
           <Card className="mb-6 shimmer-border shimmer-overlay">
@@ -74,12 +87,20 @@ export default function JewelryDetailPage() {
           </Card>
 
           <div className="mb-6">
-            <h2 className="mb-2 font-display text-xl font-semibold">Description</h2>
-            <p className="text-muted-foreground whitespace-pre-wrap">{jewelry.description}</p>
+            <h2 className="mb-2 font-display text-xl font-semibold">
+              Description
+            </h2>
+            <p className="text-muted-foreground whitespace-pre-wrap">
+              {jewelry.description}
+            </p>
           </div>
 
           {jewelry.available && (
-            <PurchaseInquiryForm itemId={jewelry.id} itemType={ItemType.jewelry} itemName={jewelry.name} />
+            <PurchaseInquiryForm
+              itemId={jewelry.id}
+              itemType={ItemType.jewelry}
+              itemName={jewelry.name}
+            />
           )}
         </div>
       </div>

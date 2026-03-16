@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle2 } from 'lucide-react';
-import { useCreateOrder } from '../../hooks/useQueries';
-import { toast } from 'sonner';
-import type { ItemType } from '../../backend';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import type { ItemType } from "../../backend";
+import { useCreateOrder } from "../../hooks/useQueries";
 
 interface PurchaseInquiryFormProps {
   itemId: string;
@@ -15,11 +15,15 @@ interface PurchaseInquiryFormProps {
   itemName: string;
 }
 
-export default function PurchaseInquiryForm({ itemId, itemType, itemName }: PurchaseInquiryFormProps) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [quantity, setQuantity] = useState('1');
+export default function PurchaseInquiryForm({
+  itemId,
+  itemType,
+  itemName,
+}: PurchaseInquiryFormProps) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [quantity, setQuantity] = useState("1");
   const [submitted, setSubmitted] = useState(false);
 
   const createOrderMutation = useCreateOrder();
@@ -28,13 +32,13 @@ export default function PurchaseInquiryForm({ itemId, itemType, itemName }: Purc
     e.preventDefault();
 
     if (!name.trim() || !email.trim()) {
-      toast.error('Please fill in all required fields');
+      toast.error("Please fill in all required fields");
       return;
     }
 
-    const quantityNum = parseInt(quantity);
-    if (isNaN(quantityNum) || quantityNum < 1) {
-      toast.error('Please enter a valid quantity');
+    const quantityNum = Number.parseInt(quantity);
+    if (Number.isNaN(quantityNum) || quantityNum < 1) {
+      toast.error("Please enter a valid quantity");
       return;
     }
 
@@ -49,9 +53,9 @@ export default function PurchaseInquiryForm({ itemId, itemType, itemName }: Purc
       });
 
       setSubmitted(true);
-      toast.success('Inquiry submitted successfully!');
+      toast.success("Inquiry submitted successfully!");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to submit inquiry');
+      toast.error(error.message || "Failed to submit inquiry");
     }
   };
 
@@ -60,9 +64,12 @@ export default function PurchaseInquiryForm({ itemId, itemType, itemName }: Purc
       <Card className="shimmer-border shimmer-overlay">
         <CardContent className="flex flex-col items-center justify-center py-12 text-center">
           <CheckCircle2 className="mb-4 h-12 w-12 text-shimmer" />
-          <h3 className="mb-2 font-display text-xl font-semibold">Thank You!</h3>
+          <h3 className="mb-2 font-display text-xl font-semibold">
+            Thank You!
+          </h3>
           <p className="text-muted-foreground">
-            Your purchase inquiry for "{itemName}" has been received. We'll get back to you soon!
+            Your purchase inquiry for "{itemName}" has been received. We'll get
+            back to you soon!
           </p>
         </CardContent>
       </Card>
@@ -125,8 +132,12 @@ export default function PurchaseInquiryForm({ itemId, itemType, itemName }: Purc
             />
           </div>
 
-          <Button type="submit" className="w-full shimmer-glow" disabled={createOrderMutation.isPending}>
-            {createOrderMutation.isPending ? 'Submitting...' : 'Submit Inquiry'}
+          <Button
+            type="submit"
+            className="w-full shimmer-glow"
+            disabled={createOrderMutation.isPending}
+          >
+            {createOrderMutation.isPending ? "Submitting..." : "Submit Inquiry"}
           </Button>
         </form>
       </CardContent>

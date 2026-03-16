@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search } from 'lucide-react';
-import { useGetAvailableJewelry } from '../hooks/useQueries';
-import JewelryCard from '../components/storefront/JewelryCard';
-import LoadingState from '../components/states/LoadingState';
-import ErrorState from '../components/states/ErrorState';
-import EmptyState from '../components/states/EmptyState';
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Search } from "lucide-react";
+import { useState } from "react";
+import EmptyState from "../components/states/EmptyState";
+import ErrorState from "../components/states/ErrorState";
+import LoadingState from "../components/states/LoadingState";
+import JewelryCard from "../components/storefront/JewelryCard";
+import { useGetAvailableJewelry } from "../hooks/useQueries";
 
 export default function JewelryPage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [availabilityFilter, setAvailabilityFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [availabilityFilter, setAvailabilityFilter] = useState<string>("all");
 
   const { data: jewelry, isLoading, error, refetch } = useGetAvailableJewelry();
 
@@ -22,9 +28,9 @@ export default function JewelryPage() {
       item.material.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesAvailability =
-      availabilityFilter === 'all' ||
-      (availabilityFilter === 'available' && item.available) ||
-      (availabilityFilter === 'sold' && !item.available);
+      availabilityFilter === "all" ||
+      (availabilityFilter === "available" && item.available) ||
+      (availabilityFilter === "sold" && !item.available);
 
     return matchesSearch && matchesAvailability;
   });
@@ -34,14 +40,23 @@ export default function JewelryPage() {
   }
 
   if (error) {
-    return <ErrorState message="Failed to load jewelry collection" onRetry={refetch} />;
+    return (
+      <ErrorState
+        message="Failed to load jewelry collection"
+        onRetry={refetch}
+      />
+    );
   }
 
   return (
     <div className="container py-12">
       <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">Jewelry Collection</h1>
-        <p className="mt-2 text-muted-foreground">Handcrafted pieces with rustic elegance and silver shimmer</p>
+        <h1 className="font-display text-4xl font-bold tracking-tight">
+          Jewelry Collection
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          Handcrafted pieces with rustic elegance and silver shimmer
+        </p>
       </div>
 
       {/* Filters */}
@@ -55,7 +70,10 @@ export default function JewelryPage() {
             className="pl-9 shimmer-border"
           />
         </div>
-        <Select value={availabilityFilter} onValueChange={setAvailabilityFilter}>
+        <Select
+          value={availabilityFilter}
+          onValueChange={setAvailabilityFilter}
+        >
           <SelectTrigger className="w-full sm:w-[180px] shimmer-border">
             <SelectValue placeholder="Availability" />
           </SelectTrigger>
@@ -78,9 +96,9 @@ export default function JewelryPage() {
         <EmptyState
           title="No jewelry found"
           description={
-            searchQuery || availabilityFilter !== 'all'
-              ? 'Try adjusting your filters'
-              : 'Check back soon for new pieces'
+            searchQuery || availabilityFilter !== "all"
+              ? "Try adjusting your filters"
+              : "Check back soon for new pieces"
           }
         />
       )}

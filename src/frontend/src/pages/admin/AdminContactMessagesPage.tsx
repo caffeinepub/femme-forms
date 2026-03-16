@@ -1,28 +1,47 @@
-import { useGetAllContactMessages } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import ErrorState from '../../components/states/ErrorState';
-import EmptyState from '../../components/states/EmptyState';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Mail } from "lucide-react";
+import EmptyState from "../../components/states/EmptyState";
+import ErrorState from "../../components/states/ErrorState";
+import LoadingState from "../../components/states/LoadingState";
+import { useGetAllContactMessages } from "../../hooks/useQueries";
 
 export default function AdminContactMessagesPage() {
-  const { data: messages, isLoading, error, refetch } = useGetAllContactMessages();
+  const {
+    data: messages,
+    isLoading,
+    error,
+    refetch,
+  } = useGetAllContactMessages();
 
   if (isLoading) {
     return <LoadingState message="Loading messages..." />;
   }
 
   if (error) {
-    return <ErrorState message="Failed to load messages" onRetry={() => refetch()} />;
+    return (
+      <ErrorState message="Failed to load messages" onRetry={() => refetch()} />
+    );
   }
 
-  const sortedMessages = [...(messages || [])].sort((a, b) => Number(b.id - a.id));
+  const sortedMessages = [...(messages || [])].sort((a, b) =>
+    Number(b.id - a.id),
+  );
 
   return (
     <div className="container py-12">
       <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">Contact Messages</h1>
-        <p className="mt-2 text-muted-foreground">Messages submitted through the contact form</p>
+        <h1 className="font-display text-4xl font-bold tracking-tight">
+          Contact Messages
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          Messages submitted through the contact form
+        </p>
       </div>
 
       {!messages || messages.length === 0 ? (
@@ -42,7 +61,9 @@ export default function AdminContactMessagesPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-wrap text-sm text-muted-foreground">{message.message}</p>
+                <p className="whitespace-pre-wrap text-sm text-muted-foreground">
+                  {message.message}
+                </p>
               </CardContent>
             </Card>
           ))}

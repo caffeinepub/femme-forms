@@ -1,18 +1,3 @@
-import { Link } from '@tanstack/react-router';
-import { useGetAllArtworks, useDeleteArtwork } from '../../hooks/useQueries';
-import LoadingState from '../../components/states/LoadingState';
-import ErrorState from '../../components/states/ErrorState';
-import EmptyState from '../../components/states/EmptyState';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,9 +8,24 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Plus, Pencil, Trash2, Palette } from 'lucide-react';
-import { toast } from 'sonner';
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Link } from "@tanstack/react-router";
+import { Palette, Pencil, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import EmptyState from "../../components/states/EmptyState";
+import ErrorState from "../../components/states/ErrorState";
+import LoadingState from "../../components/states/LoadingState";
+import { useDeleteArtwork, useGetAllArtworks } from "../../hooks/useQueries";
 
 export default function AdminArtworksPage() {
   const { data: artworks, isLoading, error, refetch } = useGetAllArtworks();
@@ -36,7 +36,7 @@ export default function AdminArtworksPage() {
       await deleteArtwork.mutateAsync(id);
       toast.success(`"${title}" deleted successfully`);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to delete artwork');
+      toast.error(error.message || "Failed to delete artwork");
     }
   };
 
@@ -45,15 +45,21 @@ export default function AdminArtworksPage() {
   }
 
   if (error) {
-    return <ErrorState message="Failed to load artworks" onRetry={() => refetch()} />;
+    return (
+      <ErrorState message="Failed to load artworks" onRetry={() => refetch()} />
+    );
   }
 
   return (
     <div className="container py-12">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-4xl font-bold tracking-tight">Manage Artworks</h1>
-          <p className="mt-2 text-muted-foreground">Create, edit, and manage your artwork inventory</p>
+          <h1 className="font-display text-4xl font-bold tracking-tight">
+            Manage Artworks
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Create, edit, and manage your artwork inventory
+          </p>
         </div>
         <Button asChild>
           <Link to="/admin/artworks/new">
@@ -94,14 +100,19 @@ export default function AdminArtworksPage() {
                   <TableCell className="font-medium">{artwork.title}</TableCell>
                   <TableCell>${Number(artwork.price).toFixed(2)}</TableCell>
                   <TableCell>
-                    <Badge variant={artwork.available ? 'default' : 'secondary'}>
-                      {artwork.available ? 'Available' : 'Sold'}
+                    <Badge
+                      variant={artwork.available ? "default" : "secondary"}
+                    >
+                      {artwork.available ? "Available" : "Sold"}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="ghost" size="sm">
-                        <Link to="/admin/artworks/$artworkId/edit" params={{ artworkId: artwork.id }}>
+                        <Link
+                          to="/admin/artworks/$artworkId/edit"
+                          params={{ artworkId: artwork.id }}
+                        >
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
@@ -115,13 +126,16 @@ export default function AdminArtworksPage() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>Delete Artwork</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Are you sure you want to delete "{artwork.title}"? This action cannot be undone.
+                              Are you sure you want to delete "{artwork.title}"?
+                              This action cannot be undone.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction
-                              onClick={() => handleDelete(artwork.id, artwork.title)}
+                              onClick={() =>
+                                handleDelete(artwork.id, artwork.title)
+                              }
                               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             >
                               Delete

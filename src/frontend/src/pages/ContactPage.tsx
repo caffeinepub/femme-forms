@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { useSendContactMessage } from '../hooks/useQueries';
-import { toast } from 'sonner';
-import { CheckCircle2, Mail } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { CheckCircle2, Mail } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useSendContactMessage } from "../hooks/useQueries";
 
 export default function ContactPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const sendMessage = useSendContactMessage();
@@ -20,7 +26,7 @@ export default function ContactPage() {
     e.preventDefault();
 
     if (!name.trim() || !email.trim() || !message.trim()) {
-      toast.error('Please fill in all fields');
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -31,11 +37,11 @@ export default function ContactPage() {
         message: message.trim(),
       });
       setSubmitted(true);
-      setName('');
-      setEmail('');
-      setMessage('');
+      setName("");
+      setEmail("");
+      setMessage("");
     } catch (error: any) {
-      toast.error(error.message || 'Failed to send message');
+      toast.error(error.message || "Failed to send message");
     }
   };
 
@@ -43,8 +49,13 @@ export default function ContactPage() {
     <div className="container py-12">
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight">Get in Touch</h1>
-          <p className="mt-2 text-muted-foreground">Have a question or want to discuss a custom piece? Send us a message.</p>
+          <h1 className="font-display text-4xl font-bold tracking-tight">
+            Get in Touch
+          </h1>
+          <p className="mt-2 text-muted-foreground">
+            Have a question or want to discuss a custom piece? Send us a
+            message.
+          </p>
         </div>
 
         {submitted && (
@@ -52,7 +63,9 @@ export default function ContactPage() {
             <CardContent className="pt-6">
               <div className="text-center">
                 <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
-                <h3 className="mt-4 font-display text-xl font-semibold">Message Sent!</h3>
+                <h3 className="mt-4 font-display text-xl font-semibold">
+                  Message Sent!
+                </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Thank you for reaching out. We'll get back to you soon.
                 </p>
@@ -67,7 +80,9 @@ export default function ContactPage() {
               <Mail className="h-5 w-5" />
               Contact Form
             </CardTitle>
-            <CardDescription>Fill out the form below and we'll respond as soon as possible.</CardDescription>
+            <CardDescription>
+              Fill out the form below and we'll respond as soon as possible.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -75,13 +90,24 @@ export default function ContactPage() {
                 <Label htmlFor="name">
                   Name <span className="text-destructive">*</span>
                 </Label>
-                <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">
                   Email <span className="text-destructive">*</span>
                 </Label>
-                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">
@@ -96,8 +122,12 @@ export default function ContactPage() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={sendMessage.isPending}>
-                {sendMessage.isPending ? 'Sending...' : 'Send Message'}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={sendMessage.isPending}
+              >
+                {sendMessage.isPending ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </CardContent>
